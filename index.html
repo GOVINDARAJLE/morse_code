@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@713&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
+		<style>
+			body {
+			}
+			h1 {
+				position: relative;
+				text-align: center;
+				color: #353535;
+				font-size: 50px;
+				font-family: "Roboto Slab", serif;
+			}
+
+			p {
+				font-family: "Roboto Slab", serif;
+
+				font-weight: 300;
+				text-align: center;
+				font-size: 18px;
+				color: #000;
+			}
+			.frame {
+				width: 90%;
+				margin: 40px auto;
+				text-align: center;
+			}
+			button {
+				margin: 20px;
+				outline: none;
+			}
+			.custom-btn {
+				width: 130px;
+				height: 40px;
+				padding: 10px 25px;
+				border: 2px solid #000;
+				font-family: "Roboto Slab", serif;
+
+				font-weight: 500;
+				background: transparent;
+				cursor: pointer;
+				transition: all 0.3s ease;
+				position: relative;
+				display: inline-block;
+			}
+
+			/* 11 */
+			.btn-11 {
+				overflow: hidden;
+				transition: all 0.3s ease;
+			}
+			.btn-11:hover {
+				background: #000;
+				color: #fff;
+			}
+			.btn-11:before {
+				position: absolute;
+				content: "";
+				display: inline-block;
+				top: -180px;
+				left: 0;
+				width: 30px;
+				height: 100%;
+				background-color: #fff;
+				animation: shiny-btn1 3s ease-in-out infinite;
+			}
+			.btn-11:active {
+				box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.3),
+					-4px -4px 6px 0 rgba(116, 125, 136, 0.2),
+					inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+					inset 4px 4px 6px 0 rgba(0, 0, 0, 0.2);
+			}
+
+			@-webkit-keyframes shiny-btn1 {
+				0% {
+					-webkit-transform: scale(0) rotate(45deg);
+					opacity: 0;
+				}
+				80% {
+					-webkit-transform: scale(0) rotate(45deg);
+					opacity: 0.5;
+				}
+				81% {
+					-webkit-transform: scale(4) rotate(45deg);
+					opacity: 1;
+				}
+				100% {
+					-webkit-transform: scale(50) rotate(45deg);
+					opacity: 0;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div style="text-align: center">
+			<br />
+			<p style="font-size: 30px" id="output"></p>
+
+			<br />
+			<br />
+			<input
+				style="
+					font-size: 25px;
+					font-weight: 600;
+					text-decoration: none;
+					text-indent: initial;
+					text-decoration-color: #000;
+					border: solid 2px #000;
+				"
+				type="text"
+				id="input"
+				placeholder="Enter morse code"
+				style="font-size: 25px"
+				required
+			/>
+			<br />
+
+			<button onclick="encodeMorse()" class="custom-btn btn-11">
+				<span>Encode</span>
+			</button>
+			<button onclick="decodeMorse()" class="custom-btn btn-11">
+				<span>Decode</span>
+			</button>
+			
+		</div>
+
+		<script>
+			var morseCode = {
+				".-": "a",
+				"-...": "b",
+				"-.-.": "c",
+				"-..": "d",
+				".": "e",
+				"..-.": "f",
+				"--.": "g",
+				"....": "h",
+				"..": "i",
+				".---": "j",
+				"-.-": "k",
+				".-..": "l",
+				"--": "m",
+				"-.": "n",
+				"---": "o",
+				".--.": "p",
+				"--.-": "q",
+				".-.": "r",
+				"...": "s",
+				"-": "t",
+				"..-": "u",
+				"...-": "v",
+				".--": "w",
+				"-..-": "x",
+				"-.--": "y",
+				"--..": "z",
+				".----": "1",
+				"..---": "2",
+				"...--": "3",
+				"....-": "4",
+				".....": "5",
+				"-....": "6",
+				"--...": "7",
+				"---..": "8",
+				"----.": "9",
+				"-----": "0",
+				"": " ",
+			};
+
+			// clear the output
+			function clearOutput() {
+				setTimeout(() => {
+					document.getElementById("output").innerHTML = "<br>";
+				}, 5000);
+			}
+			// user define input function
+			function getInput() {
+				var input = document.getElementById("a").value;
+				return input;
+			}
+
+			//encode function
+			function encodeMorse() {
+				var input = document.getElementById("input").value;
+				var output = "";
+				for (var i = 0; i < input.length; i++) {
+					var letter = input[i].toLowerCase();
+					for (var key in morseCode) {
+						if (morseCode[key] == letter) {
+							output += key + " ";
+						}
+					}
+				}
+				document.getElementById("output").innerHTML = output;
+				clearOutput();
+			}
+
+			//decode function
+			function decodeMorse() {
+				var input = document.getElementById("input").value;
+				var output = document.getElementById("output");
+
+				var result = "";
+				var words = input.split(" / ");
+				for (var i = 0; i < words.length; i++) {
+					var letters = words[i].split(" ");
+					for (var j = 0; j < letters.length; j++) {
+						result += morseCode[letters[j]];
+					}
+					result += " ";
+				}
+				output.innerHTML = result;
+				clearOutput();
+			}
+		</script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+			integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+			integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
